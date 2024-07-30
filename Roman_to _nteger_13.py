@@ -1,33 +1,23 @@
 class Solution:
     def romanToInt(self, s: str) -> int:
-        numbers_from_string = []
-        for roman_char in s:
-            if roman_char == 'I':
-                numbers_from_string.append(1)
-            elif roman_char == 'V':
-                numbers_from_string.append(5)
-            elif roman_char == 'X':
-                numbers_from_string.append(10)
-            elif roman_char == 'L':
-                numbers_from_string.append(50)
-            elif roman_char == 'C':
-                numbers_from_string.append(100)
-            elif roman_char == 'D':
-                numbers_from_string.append(500)
-            else:
-                numbers_from_string.append(1000)
-        length_of_numbers = len(numbers_from_string)
-        result_number = 0
-        for index, number in enumerate(numbers_from_string):
-            if index < length_of_numbers - 1:
-                next_number = numbers_from_string[index+1]
-                if number < next_number:
-                    result_number -= number
+        roman_to_value = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100, 'D': 500, 'M': 1000}
+
+        total = 0
+        length = len(s)
+
+        for i in range(length):
+            # 获取当前和下一个罗马数字的值
+            current_value = roman_to_value[s[i]]
+            if i + 1 < length:
+                next_value = roman_to_value[s[i + 1]]
+                if current_value < next_value:
+                    total -= current_value
                 else:
-                    result_number += number
+                    total += current_value
             else:
-                result_number += number
-        return result_number
+                total += current_value
+
+        return total
 
 
 if __name__ == '__main__':
