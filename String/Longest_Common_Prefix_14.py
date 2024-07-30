@@ -1,5 +1,6 @@
-
 from typing import List
+
+
 class Solution:
     def longestCommonPrefix(self, strs: List[str]) -> str:
         min_length = 999
@@ -26,6 +27,27 @@ class Solution:
                 else:
                     return ''
         return common_prefix
+
+    def longestCommonPrefix_1(self, strs: List[str]) -> str:
+        if not strs:
+            return ""
+
+        # 以第一个字符串为基准
+        prefix = strs[0]
+
+        # 遍历列表中的每一个字符串
+        for s in strs[1:]:
+            # 逐个字符比较
+            i = 0
+            while i < len(prefix) and i < len(s) and prefix[i] == s[i]:
+                i += 1
+            # 更新当前前缀
+            prefix = prefix[:i]
+            # 如果前缀为空，直接返回
+            if not prefix:
+                return ""
+
+        return prefix
 
 
 if __name__ == '__main__':
