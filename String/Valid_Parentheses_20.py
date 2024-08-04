@@ -1,5 +1,5 @@
 class Solution:
-    def isValid(self, s: str) -> bool:
+    def isValid_0(self, s: str) -> bool:
         if len(s) % 2 != 0:
             return False
         match_map = {
@@ -26,6 +26,32 @@ class Solution:
             return True
         else:
             return False
+
+    def isValid(self, s: str) -> bool:
+        # Dictionary to hold matching pairs
+        match_map = {
+            '(': ')',
+            '[': ']',
+            '{': '}'
+        }
+
+        # Stack to keep track of opening brackets
+        stack = []
+
+        for char_curret in s:
+            if char_curret in match_map:
+                stack.append(char_curret)
+            elif char_curret in match_map.values():
+                if stack and match_map[stack[-1]] == char_curret:
+                    stack.pop()
+                else:
+                    return False
+            else:
+                return False
+
+        return not stack
+
+
 
 
 if __name__ == "__main__":
