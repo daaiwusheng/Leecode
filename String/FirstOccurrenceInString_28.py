@@ -1,27 +1,24 @@
 class Solution:
     def strStr(self, haystack: str, needle: str) -> int:
-        count = 0
-        index = -1
-        i = 0
-        while i < len(haystack) and len(haystack) - i >= len(needle) - count:
-            char_hays = haystack[i]
-            if count < len(needle):
-                if char_hays == needle[count]:
-                    if count == 0:
-                        index = i
-                    count += 1
-                    i += 1
-                elif char_hays != needle[count]:
-                    if index > -1:
-                        i = index + 1
-                    else:
-                        i += 1
-                    index = -1
-                    count = 0
+        # 获取haystack和needle的长度
+        h_len = len(haystack)
+        n_len = len(needle)
 
-            if count == len(needle):
-                return index
+        # 如果needle为空，返回0
+        if n_len == 0:
+            return 0
 
+        # 如果needle长度大于haystack长度，返回-1
+        if n_len > h_len:
+            return -1
+
+        # 遍历haystack
+        for i in range(h_len - n_len + 1):
+            # 检查当前子字符串是否等于needle
+            if haystack[i:i + n_len] == needle:
+                return i
+
+        # 如果没有找到，返回-1
         return -1
 
 
@@ -30,14 +27,14 @@ if __name__ == '__main__':
     haystack = 'mississippi'
     needle = "issip"
 
-    haystack = 'a'
-    needle = "a"
+    # haystack = 'a'
+    # needle = "a"
 
-    haystack = 'a'
-    needle = "aa"
+    # haystack = 'a'
+    # needle = "aa"
 
-    haystack = 'abcabdef'
-    needle = "ef"
+    # haystack = 'abcabdef'
+    # needle = "ef"
 
     result = solution.strStr(haystack, needle)
     print(result)
